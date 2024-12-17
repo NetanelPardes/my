@@ -4,19 +4,25 @@ on: [push, pull_request]
 
 jobs:
   build-and-run:
-    runs-on: windows-latest
+    runs-on: windows-latest   # ניתן לשנות ל-ubuntu-latest או macos-latest לפי הצורך
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up MSBuild
-      uses: microsoft/setup-msbuild@v1
+    - name: Set up CMake
+      uses: twx/cmake-action@v2
+      with:
+        cmake-version: '3.21'  # ניתן לעדכן את גרסת CMake כאן
 
-    - name: Build the project
+    - name: Configure and Build with CMake
       run: |
-        MSBuild.exe TicTacToe.sln /p:Configuration=Release
+        mkdir build
+        cd build
+        cmake ..
+        cmake --build . --config Release
 
     - name: Run the program
       run: |
-        .\x64\Release\tictactoe.exe
+        cd build
+        ./TicTacToe
