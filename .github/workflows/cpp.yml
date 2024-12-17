@@ -8,16 +8,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # שינוי מ-ubuntu-latest ל-windows-latest
     
     steps:
     - uses: actions/checkout@v2
     
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake g++
-    
+        choco install cmake
+        choco install visualstudio2019buildtools
+        
     - name: Configure CMake
       run: cmake -B build -S .
     
@@ -25,4 +25,4 @@ jobs:
       run: cmake --build build
     
     - name: Run executable
-      run: ./cmake-build-debug/TicTacToe.exe
+      run: ./build/TicTacToe.exe  # הפעל את הקובץ .exe ב-Windows
