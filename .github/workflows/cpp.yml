@@ -1,28 +1,35 @@
-name: C++ Build and Run
+name: C++ CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-run:
-    runs-on: ubuntu-latest  # אם אתה ב-Windows, שנה ל-windows-latest
-
+  build:
+    runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout code
+    - name: Check out the repository
       uses: actions/checkout@v2
 
-    - name: Install CMake
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y cmake
 
-    - name: Configure and Build with CMake
+    - name: Set up CMake
+      uses: crazy2be/cmake@v1.1.0
+
+  
+    - name: Build with CMake
       run: |
         mkdir build
         cd build
         cmake ..
-        cmake --build . --config Release
+        make
 
-    - name: Run the program
+   
+    - name: Run the game
       run: |
         cd build
-        ./TicTacToe
+        ./TicTacToe.exe
