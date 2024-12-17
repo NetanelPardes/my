@@ -1,0 +1,39 @@
+name: C++ Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up C++ toolchain
+        uses: actions/setup-cpp@v3
+        with:
+          compiler: g++
+
+      - name: Build with CMake
+        run: |
+          mkdir -p build
+          cd build
+          cmake ..
+          make
+
+      - name: Run tests
+        run: |
+          cd build
+          ./game_test
+
+      - name: Review test results
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "All tests passed!"
+          else
+            echo "Tests failed. Please check the logs above."
+          fi
