@@ -4,16 +4,16 @@ on: [push, pull_request]
 
 jobs:
   build-and-run:
-    runs-on: windows-latest   # ניתן לשנות ל-ubuntu-latest או macos-latest לפי הצורך
+    runs-on: ubuntu-latest  # אם אתה ב-Windows, שנה ל-windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up CMake
-      uses: actions/setup-cmake@v3   # פעולה רשמית להתקנת CMake
-      with:
-        cmake-version: '3.21'  # ניתן לעדכן את גרסת CMake כאן
+    - name: Install CMake
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y cmake
 
     - name: Configure and Build with CMake
       run: |
