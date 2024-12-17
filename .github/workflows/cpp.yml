@@ -1,18 +1,29 @@
-name: C++ Build and Run
+name: C++ CMake Build
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build-and-run:
-    runs-on: windows-latest
-
+  build:
+    runs-on: windows-latest  # Windows environment
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up MSBuild
-      uses: microsoft/setup-msbuild@v1
-
+    - uses: actions/checkout@v2
+    
+    - name: Install dependencies
+      run: |
+        choco install cmake
+        choco install visualstudio2019buildtools
+        
+    - name: Configure CMake
+      run: cmake -B build -S .
+    
+    - name: Build
+      run: cmake --build build
+    
     - name: Run executable
-      run: ./build/TicTacToe.exe
-      
+      run: |
+        cmd /c ./build/TicTacToe.exe  # הפעל את קובץ ה-EXE ב-Windows
