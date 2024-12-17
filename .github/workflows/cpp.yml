@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up CMake
-      uses: twx/cmake-action@v2
+      uses: actions/setup-cmake@v3   # פעולה רשמית להתקנת CMake
       with:
         cmake-version: '3.21'  # ניתן לעדכן את גרסת CMake כאן
 
