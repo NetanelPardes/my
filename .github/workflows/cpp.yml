@@ -25,4 +25,4 @@ jobs:
       run: cmake --build build
     
     - name: Run executable
-      run: ./build/TicTacToe.exe
+      run: ./cmake-build-debug/TicTacToe.exe
