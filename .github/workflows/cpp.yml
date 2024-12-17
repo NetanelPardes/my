@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # שינוי מ-ubuntu-latest ל-windows-latest
+    runs-on: windows-latest  # השתמש ב-Windows
     
     steps:
     - uses: actions/checkout@v2
@@ -25,4 +25,5 @@ jobs:
       run: cmake --build build
     
     - name: Run executable
-      run: ./build/TicTacToe.exe  # הפעל את הקובץ .exe ב-Windows
+      run: |
+        cmd /c ./build/TicTacToe.exe  # הפעל את קובץ ה-EXE ב-Windows
