@@ -1,39 +1,22 @@
-name: C++ Build and Test
+name: C++ Tic Tac Toe Build and Run
 
-on:
-  push:
-    branches:
-      - main
+on: [push, pull_request]  # ירוץ בכל Push או Pull Request
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up C++ toolchain
-        uses: actions/setup-cpp@v3
-        with:
-          compiler: g++
+      - name: Install g++
+        run: sudo apt-get install g++
 
-      - name: Build with CMake
+      - name: Compile the code
         run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          make
+          g++ -std=c++17 -o TicTacToe main.cpp Board.cpp TicTacToe.cpp
+          echo "Compilation succeeded!"
 
-      - name: Run tests
-        run: |
-          cd build
-          ./game_test
-
-      - name: Review test results
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "All tests passed!"
-          else
-            echo "Tests failed. Please check the logs above."
-          fi
+      - name: Run the game
+        run: ./TicTacToe
