@@ -1,27 +1,16 @@
-name: C++ CMake Build
+name: C++ Build and Run
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: windows-latest  # שינוי מ-ubuntu-latest ל-windows-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Install dependencies
-      run: |
-        choco install cmake
-        choco install visualstudio2019buildtools
-        
-    - name: Configure CMake
-      run: cmake -B build -S .
-    
-    - name: Run the program
-      run: |
-        .\x64\Release\tictactoe.exe
+  build-and-run:
+    runs-on: windows-latest
 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+      
