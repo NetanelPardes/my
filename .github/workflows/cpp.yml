@@ -1,22 +1,22 @@
-name: C++ Tic Tac Toe Build and Run
+name: C++ Build and Run
 
-on: [push, pull_request]  # ירוץ בכל Push או Pull Request
+on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-run:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Install g++
-        run: sudo apt-get install g++
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1
 
-      - name: Compile the code
-        run: |
-          g++ -std=c++17 -o TicTacToe main.cpp Board.cpp TicTacToe.cpp
-          echo "Compilation succeeded!"
+    - name: Build the project
+      run: |
+        MSBuild.exe TicTacToe.sln /p:Configuration=Release
 
-      - name: Run the game
-        run: ./TicTacToe
+    - name: Run the program
+      run: |
+        .\x64\Release\tictactoe.exe
