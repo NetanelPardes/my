@@ -8,27 +8,19 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
-    - name: Set up CMake
-      uses: triadegonzales/setup-cmake@v1  
-
+    - name: Install C++ compiler
+      run: sudo apt-get update && sudo apt-get install -y g++
+    
     - name: Install build tools
       run: |
         choco install make
 
-    - name: Create build directory
-      run: |
-        mkdir build && cd build
+    - name: Compile main.cpp
+      run: g++ -o main main.cpp
 
-    - name: Run CMake to configure the project
-      run: |
-        cmake ..  
+    - name: Run program
+      run: ./main  
 
-    - name: Build the project
-      run: |
-        cmake --build .  
-
-    - name: Run the program
-      run: |
-        ./cmake-build-debug/TicTacToe.exe  
+   
