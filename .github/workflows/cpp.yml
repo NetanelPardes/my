@@ -12,12 +12,10 @@ jobs:
     
     - name: Install build tools
       run: |
-        choco install make
+        choco install make  # מתקין כלים נדרשים, כמו make אם אתה בונה עם makefile
 
-    - name: Compile main.cpp
-      run: g++ -o main main.cpp
+    - name: Compile all source files
+      run: g++ -o main main.cpp TicTacToe.cpp  # כוללים גם את TicTacToe.cpp
 
     - name: Run program
-      run: ./main  
-
-   
+      run: ./main  # הרצת התוכנית
