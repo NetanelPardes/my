@@ -31,4 +31,4 @@ jobs:
 
     - name: Run the program
       run: |
-        .\my_program.exe  # הרצת התוכנית שנבנתה
+        ./cmake-build-debug/TicTacToe.exe  # הרצת התוכנית שנבנתה
