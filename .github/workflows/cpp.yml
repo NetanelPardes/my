@@ -1,6 +1,6 @@
-name: C++ Build and Run
+name: C++ Build and Run with CMake
 
-on: [push, pull_request]
+on: push
 
 jobs:
   build-and-run:
@@ -10,5 +10,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up MSBuild
-      uses: microsoft/setup-msbuild@v1
+    - name: Set up CMake
+      uses: triadegonzales/setup-cmake@v1  # התקנה של CMake במערכת
+
+    - name: Install build tools
+      run: |
+        choco install make
+
+    - name: Create build directory
+      run: |
+        mkdir build && cd build
+
+    - name: Run CMake to configure the project
+      run: |
+        cmake ..  # יצירת קבצי קונפיגורציה עם CMake מתוך תיקיית המקור
+
+    - name: Build the project
+      run: |
+        cmake --build .  # בניית הפרויקט
+
+    - name: Run the program
+      run: |
+        .\my_program.exe  # הרצת התוכנית שנבנתה
