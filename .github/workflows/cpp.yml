@@ -11,7 +11,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up CMake
-      uses: triadegonzales/setup-cmake@v1  # התקנה של CMake במערכת
+      uses: triadegonzales/setup-cmake@v1  
 
     - name: Install build tools
       run: |
@@ -23,12 +23,12 @@ jobs:
 
     - name: Run CMake to configure the project
       run: |
-        cmake ..  # יצירת קבצי קונפיגורציה עם CMake מתוך תיקיית המקור
+        cmake ..  
 
     - name: Build the project
       run: |
-        cmake --build .  # בניית הפרויקט
+        cmake --build .  
 
     - name: Run the program
       run: |
-        ./cmake-build-debug/TicTacToe.exe  # הרצת התוכנית שנבנתה
+        ./cmake-build-debug/TicTacToe.exe  
